@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Waiting For Light</title>
+<meta name="description" content="〈Waiting For Light〉一首寫給系統故障與等待微光的情歌。線上聽，附中英對照動態歌詞。">
+<link rel="canonical" href="https://yazelin.github.io/waiting-for-light/">
+<meta property="og:type" content="music.song">
+<meta property="og:site_name" content="Waiting For Light">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="Waiting For Light">
+<meta property="og:description" content="一首寫給系統故障與等待微光的情歌。線上聽，附中英對照動態歌詞。">
+<meta property="og:url" content="https://yazelin.github.io/waiting-for-light/">
+<meta property="og:image" content="https://yazelin.github.io/waiting-for-light/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="〈Waiting For Light〉封面：一個由光點與雜訊構成的身影，在黑暗中伸手迎向遠方一點微光">
+<meta property="og:audio" content="https://yazelin.github.io/waiting-for-light/assets/waiting-for-light.mp3">
+<meta property="og:audio:type" content="audio/mpeg">
+<meta property="music:duration" content="161">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Waiting For Light">
+<meta name="twitter:description" content="一首寫給系統故障與等待微光的情歌。附中英對照動態歌詞。">
+<meta name="twitter:image" content="https://yazelin.github.io/waiting-for-light/assets/og-cover.jpg">
+<meta name="theme-color" content="#0a0e18">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MusicRecording",
+"name":"Waiting For Light","inLanguage":"en","duration":"PT2M41S",
+"url":"https://yazelin.github.io/waiting-for-light/",
+"image":"https://yazelin.github.io/waiting-for-light/assets/og-cover.jpg",
+"description":"一首寫給系統故障與等待微光的情歌。",
+"audio":{"@type":"AudioObject","contentUrl":"https://yazelin.github.io/waiting-for-light/assets/waiting-for-light.mp3",
+         "encodingFormat":"audio/mpeg","duration":"PT2M41S"}}
+</script>
+<style>
+:root{
+  --bg:#0a0e18; --ink:#e8ecf5; --ink-dim:#8b93a8;
+  --gold:#e8c26a; --cyan:#7bd9e6; --line:rgba(232,194,106,.2);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);overflow:hidden;
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  letter-spacing:.02em;-webkit-user-select:none;user-select:none}
+
+.bg{position:fixed;inset:-10%;background:url(images/cover.webp) center/cover;
+  filter:blur(56px) saturate(1.15) brightness(.46);z-index:0;
+  transform:scale(1.14) translate3d(calc(var(--px,0)*-24px),calc(var(--py,0)*-24px),0);
+  transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(10,14,24,.4),rgba(10,14,24,.94))}
+
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+
+.stage{position:relative;z-index:2;height:100dvh;display:grid;
+  grid-template-columns:minmax(0,42%) minmax(0,1fr);gap:clamp(1rem,4vw,3rem);
+  align-items:center;padding:clamp(1rem,3vw,2.5rem) clamp(1rem,4vw,3rem)}
+
+.side{display:flex;flex-direction:column;align-items:center;gap:1.1rem;min-width:0}
+.art{position:relative;width:min(100%,400px);aspect-ratio:1;border-radius:18px;
+  overflow:hidden;border:1px solid var(--line);cursor:pointer;
+  box-shadow:0 18px 60px rgba(0,0,0,.6);
+  transform:perspective(900px) rotateY(calc(var(--px,0)*7deg)) rotateX(calc(var(--py,0)*-7deg)) scale(var(--kick,1));
+  transition:transform .18s cubic-bezier(.22,.61,.36,1)}
+.art img{width:100%;height:100%;object-fit:cover;display:block}
+.art-hover{position:absolute;inset:0;display:grid;place-items:center;opacity:0;
+  background:rgba(6,8,14,.42);transition:opacity .25s}
+.art:hover .art-hover,.art:focus-visible .art-hover{opacity:1}
+.art-hover svg{width:74px;height:74px;fill:rgba(255,255,255,.94);
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.6))}
+.meta{text-align:center;line-height:1.5}
+.meta h1{font-family:"Noto Serif TC","Songti TC",Georgia,serif;
+  font-size:clamp(1.3rem,3.4vw,2rem);margin:0 0 .25em;letter-spacing:.08em}
+.meta p{margin:0;color:var(--ink-dim);font-size:.9rem}
+
+.ctrl{display:flex;align-items:center;gap:.9rem;width:min(100%,400px);transition:opacity .5s}
+button{font:inherit;color:var(--ink);background:none;border:0;cursor:pointer}
+.play{width:52px;height:52px;flex:none;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#d9a548);color:#241c08;
+  display:grid;place-items:center}
+.play:hover{filter:brightness(1.08)}
+.play svg{width:22px;height:22px;fill:currentColor}
+.seek{flex:1;min-width:0;display:flex;align-items:center;gap:.6rem}
+.seek input{flex:1;min-width:0;height:22px;-webkit-appearance:none;appearance:none;background:none}
+input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:rgba(232,236,245,.22)}
+input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:rgba(232,236,245,.22)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;margin-top:-5px;
+  border-radius:50%;background:var(--gold);border:0}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--gold);border:0}
+.seek .t{font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--ink-dim)}
+
+.lyrics{position:relative;height:100%;min-height:0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(transparent,#000 16%,#000 84%,transparent);
+  mask-image:linear-gradient(transparent,#000 16%,#000 84%,transparent)}
+.lyrics ol{list-style:none;margin:0;padding:44vh 0;transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+.lyrics li{margin:0 0 .85em;padding:.15em .3em;cursor:pointer;border-radius:8px;transform-origin:left center;
+  transition:color .3s,transform .3s,text-shadow .3s}
+.lyrics li .en{display:block;color:rgba(232,236,245,.32);font-size:clamp(1rem,2.1vw,1.5rem);line-height:1.5;
+  transition:color .3s,text-shadow .3s}
+.lyrics li .zh{display:block;color:rgba(232,236,245,.2);font-size:clamp(.78rem,1.5vw,1rem);margin-top:.15em}
+.lyrics li:hover .en{color:rgba(232,236,245,.55)}
+.lyrics li.on{transform:scale(1.05)}
+.lyrics li.on .en{color:var(--gold);text-shadow:0 0 30px rgba(232,194,106,.4)}
+.lyrics li.on .zh{color:var(--ink-dim)}
+.lyrics li.near .en{color:rgba(232,236,245,.5)}
+
+.top{position:fixed;top:0;left:0;right:0;z-index:3;display:flex;gap:1rem;
+  align-items:center;padding:.7rem 1rem;font-size:.85rem;color:var(--ink-dim);transition:opacity .5s}
+.top a,.top button{color:var(--ink-dim);text-decoration:none;font-size:.85rem}
+.top a:hover,.top button:hover{color:var(--cyan)}
+.top .sp{flex:1}
+
+body.idle .top,body.idle .ctrl{opacity:0;pointer-events:none}
+
+#hint{position:fixed;left:50%;bottom:1.4rem;transform:translateX(-50%);z-index:4;
+  padding:.45rem 1rem;border-radius:2rem;background:rgba(10,14,24,.72);
+  border:1px solid var(--line);color:var(--ink-dim);font-size:.82rem;
+  opacity:0;transition:opacity .5s;pointer-events:none;white-space:nowrap}
+#hint.show{opacity:1}
+
+@media (max-width:820px) and (orientation:portrait){
+  .stage{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);
+    gap:.9rem;padding:0 1rem 1rem;align-content:start}
+  .art{--w:min(46vw,190px);width:var(--w);margin-top:calc(var(--w) * .52 + 5px)}
+  .lyrics ol{padding:34vh 0}
+}
+@media (max-height:560px){
+  .stage{padding-top:2.8rem}
+  .art{width:min(100%,38vh);margin-top:0}
+  .side{gap:.7rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .lyrics ol,.art,.bg{transition:none}
+}
+
+.vol{display:flex;align-items:center;gap:.4rem}
+.vol button{flex:none;width:26px;height:26px;padding:0;display:grid;place-items:center;opacity:.8}
+.vol button:hover{opacity:1}
+.vol button svg{width:17px;height:17px;fill:currentColor}
+.vol input{width:76px;height:20px;-webkit-appearance:none;appearance:none;background:none;cursor:pointer}
+@media(max-width:560px){.vol{display:none}}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<canvas id="fx"></canvas>
+
+<nav class="top">
+  <span class="sp"></span>
+  <div class="vol">
+    <button id="mute" type="button" aria-label="靜音" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="vicon" d="M4 9v6h4l5 4V5L8 9H4zm11.5 3a4 4 0 0 0-2.5-3.7v7.4A4 4 0 0 0 15.5 12zM13 3.2v2.1a6.8 6.8 0 0 1 0 13.4v2.1a8.8 8.8 0 0 0 0-17.6z"/></svg>
+    </button>
+    <input id="volume" type="range" min="0" max="100" value="100" step="1" aria-label="音量">
+  </div>
+  <button id="share" type="button">分享</button>
+  <a href="assets/waiting-for-light.mp3" download>下載 MP3</a>
+  <button id="fs" type="button">全螢幕</button>
+</nav>
+
+<main class="stage">
+  <div class="side">
+    <div class="art" id="art" title="點一下播放">
+      <img src="images/cover.webp" width="900" height="900"
+           alt="〈Waiting For Light〉封面：一個由光點與雜訊構成的身影，在黑暗中伸手迎向遠方一點微光">
+      <div class="art-hover" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path class="picon" d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <div class="meta">
+      <h1>Waiting For Light</h1>
+      <p>一首寫給系統故障與等待微光的情歌</p>
+    </div>
+    <div class="ctrl">
+      <button class="play" id="play" type="button" aria-label="播放">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="picon" d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="seek">
+        <span class="t" id="cur">0:00</span>
+        <input id="bar" type="range" min="0" max="1000" value="0" step="1" aria-label="播放進度">
+        <span class="t" id="dur">2:41</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="lyrics" id="lyrics" aria-label="歌詞">
+    <ol id="lines"></ol>
+  </section>
+</main>
+
+<div id="hint">按空白鍵播放／暫停，方向鍵快轉倒轉</div>
+<!-- crossorigin：被 sandbox iframe 嵌入時本頁 origin 是 null，自家 mp3 算跨網域；
+     不用 CORS 模式接進 AudioContext 的話整條會靜音、頻譜也全平 -->
+<audio id="au" src="assets/waiting-for-light.mp3" preload="metadata" loop crossorigin="anonymous"></audio>
+
+<script>
+const au = document.getElementById('au');
+const linesEl = document.getElementById('lines');
+const art = document.getElementById('art');
+const hintEl = document.getElementById('hint');
+const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+let lyr = [];   // [{t, en, zh}]
+let active = -1;
+
+/* ── 歌詞:時間軸由本機 whisper large-v3-turbo 對齊,文字是官方歌詞 ── */
+fetch('assets/lyrics.json').then(r => r.json()).then(data => {
+  lyr = data;
+  linesEl.innerHTML = '';
+  lyr.forEach((ln, i) => {
+    const li = document.createElement('li');
+    const en = document.createElement('span'); en.className = 'en'; en.textContent = ln.en;
+    const zh = document.createElement('span'); zh.className = 'zh'; zh.textContent = ln.zh;
+    li.append(en, zh);
+    li.onclick = () => { au.currentTime = ln.t + .01; if (au.paused) au.play(); };
+    linesEl.appendChild(li);
+  });
+}).catch(() => { linesEl.innerHTML = '<li><span class="en on">歌詞載入失敗</span></li>'; });
+
+function paintLyrics(now){
+  let i = -1;
+  while (i + 1 < lyr.length && lyr[i + 1].t <= now) i++;
+  if (i === active) return;
+  active = i;
+  const kids = linesEl.children;
+  for (let k = 0; k < kids.length; k++){
+    kids[k].className = k === i ? 'on' : (Math.abs(k - i) === 1 ? 'near' : '');
+  }
+  const cur = kids[i];
+  if (!cur) return;
+  linesEl.style.transform =
+    `translateY(${linesEl.parentElement.clientHeight / 2 - cur.offsetTop - cur.offsetHeight / 2}px)`;
+  burst(...artCenter(), 6, .45);
+}
+
+/* ── 控制 ── */
+const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const bar = document.getElementById('bar');
+const PLAY = 'M8 5v14l11-7z', PAUSE = 'M7 5h3.5v14H7zm6.5 0H17v14h-3.5z';
+const setIcon = d => document.querySelectorAll('.picon').forEach(p => p.setAttribute('d', d));
+const toggle = () => au.paused ? au.play() : au.pause();
+
+document.getElementById('play').onclick = toggle;
+art.onclick = toggle;
+au.onplay = () => { setIcon(PAUSE); startAudioGraph(); };
+au.onpause = () => { setIcon(PLAY); document.body.classList.remove('idle'); };
+au.onloadedmetadata = () => document.getElementById('dur').textContent = fmt(au.duration);
+bar.oninput = () => { if (au.duration) au.currentTime = bar.value / 1000 * au.duration; };
+
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.code === 'Space'){ e.preventDefault(); toggle(); }
+  else if (e.code === 'ArrowRight') au.currentTime = Math.min(au.duration || 0, au.currentTime + 5);
+  else if (e.code === 'ArrowLeft') au.currentTime = Math.max(0, au.currentTime - 5);
+  else if (e.key === 'f' || e.key === 'F') toggleFs();
+  wake();
+});
+const toggleFs = () => document.fullscreenElement
+  ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+document.getElementById('fs').onclick = toggleFs;
+
+function toast(msg){
+  hintEl.textContent = msg;
+  hintEl.classList.add('show');
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => hintEl.classList.remove('show'), 2600);
+}
+document.getElementById('share').onclick = async () => {
+  const url = location.href;
+  if (navigator.share){
+    try { await navigator.share({ title: 'Waiting For Light', text: '一首寫給系統故障與等待微光的情歌', url }); return; }
+    catch (_) { /* 使用者取消,往下走複製 */ }
+  }
+  try { await navigator.clipboard.writeText(url); toast('連結複製好了'); }
+  catch (_) { toast(url); }
+};
+
+/* ── 音訊分析 ──
+   ponytail: 行動裝置一律不接 Web Audio graph — Android 關螢幕會掛起 AudioContext
+   直接斷音。接不上就走下面的呼吸模擬,不假裝量得到真實節拍。 */
+let analyser = null, freq = null;
+function startAudioGraph(){
+  if (analyser || matchMedia('(pointer:coarse)').matches) return;
+  try{
+    const ac = new (window.AudioContext || window.webkitAudioContext)();
+    const src = ac.createMediaElementSource(au);
+    analyser = ac.createAnalyser();
+    analyser.fftSize = 256;
+    analyser.smoothingTimeConstant = .78;
+    src.connect(analyser); analyser.connect(ac.destination);
+    freq = new Uint8Array(analyser.frequencyBinCount);
+    ac.resume();
+  }catch(_){ analyser = null; }
+}
+function fakeSpectrum(t){
+  const env = .35 + .3 * (Math.sin(t * 1.15) * .5 + .5);
+  return { bass: env, band: i => env * (.4 + .4 * Math.abs(Math.sin(i * 1.3 + t * .8))) };
+}
+
+/* ── 特效層:頻譜環 + 節拍衝擊波 + 飄向微光的光點 ── */
+const fx = document.getElementById('fx');
+const g = fx.getContext('2d');
+let W = 0, H = 0, dpr = 1;
+function resize(){
+  dpr = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  fx.width = W * dpr; fx.height = H * dpr;
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+addEventListener('resize', resize); resize();
+
+const motes = [], waves = [];
+const MAX_MOTES = 140;
+const artCenter = () => {
+  const r = art.getBoundingClientRect();
+  return [r.left + r.width / 2, r.top + r.height / 2];
+};
+
+function addMote(x, y, vx, vy, size, life){
+  if (motes.length >= MAX_MOTES) motes.shift();
+  motes.push({ x, y, vx, vy, size, life, age: 0 });
+}
+function burst(x, y, n, power = 1){
+  if (reduced) return;
+  for (let i = 0; i < n; i++){
+    const a = Math.random() * 6.28, s = (60 + Math.random() * 160) * power;
+    addMote(x, y, Math.cos(a) * s, Math.sin(a) * s - 30, 2 + Math.random() * 3, 1.3 + Math.random());
+  }
+}
+
+const mouse = { x: -999, y: -999, down: false, last: 0 };
+function wake(){
+  document.body.classList.remove('idle');
+  clearTimeout(wake.t);
+  wake.t = setTimeout(() => { if (!au.paused) document.body.classList.add('idle'); }, 2600);
+}
+addEventListener('pointermove', e => {
+  mouse.x = e.clientX; mouse.y = e.clientY;
+  document.documentElement.style.setProperty('--px', ((e.clientX / W) * 2 - 1).toFixed(3));
+  document.documentElement.style.setProperty('--py', ((e.clientY / H) * 2 - 1).toFixed(3));
+  wake();
+});
+addEventListener('pointerdown', e => { mouse.down = true; burst(e.clientX, e.clientY, 8); wake(); });
+addEventListener('pointerup', () => mouse.down = false);
+addEventListener('pointerleave', () => { mouse.x = mouse.y = -999; mouse.down = false; });
+
+const hist = [];
+let lastBeat = 0, kick = 1;
+function detectBeat(bass, now){
+  hist.push(bass);
+  if (hist.length > 60) hist.shift();
+  const avg = hist.reduce((a, b) => a + b, 0) / hist.length;
+  if (bass > avg * 1.32 && bass > .28 && now - lastBeat > 220){
+    lastBeat = now;
+    return true;
+  }
+  return false;
+}
+
+let prev = performance.now();
+function tick(now){
+  const dt = Math.min((now - prev) / 1000, .05); prev = now;
+
+  if (!au.paused && au.duration){
+    bar.value = au.currentTime / au.duration * 1000;
+    document.getElementById('cur').textContent = fmt(au.currentTime);
+  }
+  paintLyrics(au.currentTime);
+
+  let bass = 0, band;
+  if (analyser){
+    analyser.getByteFrequencyData(freq);
+    for (let i = 0; i < 6; i++) bass = Math.max(bass, freq[i] / 255);
+    band = i => freq[Math.min(freq.length - 1, 2 + i * 2)] / 255;
+  } else if (!au.paused){
+    const f = fakeSpectrum(au.currentTime);
+    bass = f.bass; band = f.band;
+  } else {
+    band = () => 0;
+  }
+
+  const [cx, cy] = artCenter();
+  if (!au.paused && detectBeat(bass, now)){
+    kick = 1.045;
+    if (!reduced){
+      waves.push({ x: cx, y: cy, r: art.offsetWidth * .52, a: .36 });
+      burst(cx, cy, 2, .4);
+    }
+  }
+  kick += (1 - kick) * Math.min(1, dt * 9);
+  document.documentElement.style.setProperty('--kick', kick.toFixed(4));
+
+  g.clearRect(0, 0, W, H);
+
+  /* 頻譜環:繞著封面往外長 */
+  const R = art.offsetWidth * .76;
+  const N = 72;
+  g.save();
+  g.translate(cx, cy);
+  g.beginPath();
+  g.arc(0, 0, R - 5, 0, 6.283);
+  g.strokeStyle = `rgba(232,194,106,${.07 + bass * .12})`;
+  g.lineWidth = 1;
+  g.stroke();
+  g.lineCap = 'round';
+  for (let i = 0; i < N; i++){
+    const v = band(i < N / 2 ? i : N - 1 - i);
+    const len = 5 + v * art.offsetWidth * .26;
+    const a = (i / N) * 6.283 - 1.5708;
+    g.save(); g.rotate(a);
+    const grad = g.createLinearGradient(0, -R, 0, -R - len);
+    grad.addColorStop(0, `rgba(232,194,106,${.22 + v * .55})`);
+    grad.addColorStop(1, `rgba(123,217,230,${.06 + v * .45})`);
+    g.strokeStyle = grad;
+    g.lineWidth = 5;
+    g.beginPath();
+    g.moveTo(0, -R); g.lineTo(0, -R - len);
+    g.stroke();
+    g.restore();
+  }
+  g.restore();
+
+  /* 節拍衝擊波 */
+  for (let i = waves.length - 1; i >= 0; i--){
+    const w = waves[i];
+    w.r += dt * 480; w.a -= dt * .8;
+    if (w.a <= 0){ waves.splice(i, 1); continue; }
+    g.beginPath();
+    g.arc(w.x, w.y, w.r, 0, 6.283);
+    g.strokeStyle = `rgba(123,217,230,${w.a})`;
+    g.lineWidth = 2;
+    g.stroke();
+  }
+
+  /* 光點:從畫面底部緩緩升起、往右上角的微光飄去 */
+  if (!reduced && motes.length < MAX_MOTES && Math.random() < (.04 + bass * .08)){
+    addMote(Math.random() * W, H + 20, (Math.random() - .3) * 20, 0, 1.5 + Math.random() * 2.5, 6 + Math.random() * 4);
+  }
+  for (let i = motes.length - 1; i >= 0; i--){
+    const p = motes[i];
+    p.age += dt;
+    if (p.age > p.life || p.y < -40){ motes.splice(i, 1); continue; }
+    const dx = p.x - mouse.x, dy = p.y - mouse.y;
+    const d2 = dx * dx + dy * dy;
+    if (d2 < 20000){
+      const d = Math.max(20, Math.sqrt(d2)), f = (1 - d / 141) * 700;
+      p.vx += (dx / d) * f * dt; p.vy += (dy / d) * f * dt;
+    }
+    p.vx *= (1 - dt * .9);
+    p.x += (p.vx - 12) * dt;
+    p.y += (p.vy - 46) * dt;
+    const fade = Math.min(1, (p.life - p.age) / .8) * Math.min(1, p.age / .3);
+    g.beginPath();
+    const grad = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+    grad.addColorStop(0, `rgba(232,194,106,${.8 * fade})`);
+    grad.addColorStop(1, 'rgba(232,194,106,0)');
+    g.fillStyle = grad;
+    g.arc(p.x, p.y, p.size * 3, 0, 6.283);
+    g.fill();
+  }
+
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+setTimeout(() => { hintEl.classList.add('show');
+  setTimeout(() => hintEl.classList.remove('show'), 5200); }, 1200);
+
+(function(){
+  var vol=document.getElementById('volume'), mute=document.getElementById('mute'),
+      on='M4 9v6h4l5 4V5L8 9H4zm11.5 3a4 4 0 0 0-2.5-3.7v7.4A4 4 0 0 0 15.5 12zM13 3.2v2.1a6.8 6.8 0 0 1 0 13.4v2.1a8.8 8.8 0 0 0 0-17.6z', off='M4 9v6h4l5 4V5L8 9H4zm16.6 3l2.1-2.1-1.4-1.4L19.2 10.6l-2.1-2.1-1.4 1.4 2.1 2.1-2.1 2.1 1.4 1.4 2.1-2.1 2.1 2.1 1.4-1.4L20.6 12z', icon=mute.querySelector('.vicon');
+  function paint(){ var off_=au.muted||au.volume===0;
+    icon.setAttribute('d', off_?off:on); mute.setAttribute('aria-pressed', off_?'true':'false');
+    mute.setAttribute('aria-label', off_?'取消靜音':'靜音'); }
+  vol.addEventListener('input',function(){ au.volume=vol.value/100; if(au.volume>0)au.muted=false; paint(); });
+  mute.addEventListener('click',function(){ au.muted=!au.muted;
+    if(!au.muted&&au.volume===0){ au.volume=1; vol.value=100; } paint(); });
+  au.volume=vol.value/100; paint();
+})();
+</script>
+</body>
+</html>
